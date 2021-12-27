@@ -1,5 +1,8 @@
 # Gitの補完機能を有効化
-fpath=(~/.zsh/completion $fpath)
+fpath=(
+  ${HOME}/.zsh/completions
+  ${fpath}
+)
 autoload -Uz compinit
 compinit
 
