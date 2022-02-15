@@ -1,3 +1,4 @@
+from cgitb import reset
 import random
 
 class PlayCharctor:
@@ -11,6 +12,13 @@ class PlayCharctor:
     def countUp_lose(self):
         self.cnt_lose += 1
 
+# ジャンケンの判定結果を返す。判定基準はplayer1に対して
+def judge(player1: PlayCharctor, player2: PlayCharctor):
+    result = player2.hand - player1.hand
+    if(0 < result): result = 'win'
+    elif(0 > result): result = 'lose'
+    else: result = 'draw'
+
 if __name__ == "__main__":
 
     # キャラクターの定義
@@ -19,12 +27,12 @@ if __name__ == "__main__":
     players.update({char_name:PlayCharctor(char_name)})
     char_name = 'npc2'
     players.update({char_name:PlayCharctor(char_name)})
-    
+
     # グーチョキパーの定義
     GUTYPA = {
-        0 : "グー",
-        1 : "チョキ",
-        2 : "パー"
+        1 : "グー",
+        2 : "チョキ",
+        0 : "パー"
     }
 
     # 勝敗定義
