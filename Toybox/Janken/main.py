@@ -8,8 +8,23 @@ class PlayCharctor:
         self.hand = None
         # kill/death
         self.KD = {'win':0, 'lose':0, 'draw':0}
+        # 戦闘回数
+        self.battles = 0
+        
     def countUp_KD(self, result):
         self.KD[result] += 1
+        self.battles += 1
+
+    def showKD(self):
+        print('########################')
+        print('[' + self.name + ']の戦績')
+        print('戦闘数：' + str(self.battles))
+        percent = self.KD['win']/self.battles*100
+        print('勝率：' + str('{:.2f}'.format(percent)) + '%')
+        print('勝利：' + str(self.KD['win']) + '回 ', end='')
+        print('敗北：' + str(self.KD['lose']) + '回 ', end='')
+        print('引分：' + str(self.KD['draw']) + '回 ')
+        print('########################')
 
 # ジャンケンの判定結果を返す。判定基準はplayer1に対して
 def judge(player1: PlayCharctor, player2: PlayCharctor):
@@ -36,7 +51,7 @@ if __name__ == "__main__":
     }
 
     # 対戦試行回数
-    tryals = 3
+    tryals = 500
     for battle_count in range(tryals):
 
         # キャラクターの手を決める
@@ -48,3 +63,5 @@ if __name__ == "__main__":
 
         # 勝敗カウント
         players['npc1'].countUp_KD(result)
+    
+    players['npc1'].showKD()
