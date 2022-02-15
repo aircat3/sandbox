@@ -1,5 +1,16 @@
 import random
 
+class PlayCharctor:
+    def __init__(self, name):
+        self.name = name
+        self.hand = None
+        self.cnt_win = 0
+        self.cnt_lose =0
+    def countUp_win(self):
+        self.cnt_win += 1
+    def countUp_lose(self):
+        self.cnt_lose += 1
+
 if __name__ == "__main__":
 
     # キャラクターの定義
