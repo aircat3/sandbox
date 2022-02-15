@@ -14,12 +14,12 @@ class PlayCharctor:
 if __name__ == "__main__":
 
     # キャラクターの定義
-    non_player_1 = 0
-    non_player_2 = 0
-
-    # NPC2の勝利数カウント
-    win_count = 0
-
+    players = {}
+    char_name = 'npc1'
+    players.update({char_name:PlayCharctor(char_name)})
+    char_name = 'npc2'
+    players.update({char_name:PlayCharctor(char_name)})
+    
     # グーチョキパーの定義
     GUTYPA = {
         0 : "グー",
