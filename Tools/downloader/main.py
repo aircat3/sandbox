@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 # ファイル保存
 import requests
 import os
-# 
+# ダウンロードの進捗リスト
 from tqdm import tqdm
 
 def initGUI():
@@ -29,7 +29,8 @@ def initGUI():
         if event == sg.WIN_CLOSED or event == 'キャンセル':
             break
         elif event == 'OK':
-            print('あなたが入力した値：', values[0])
+            print('ダウンロードURL', values[0])
+            print('ファイル保存場所', values[1])
 
     window.close()
 
@@ -48,4 +49,5 @@ def main():
 
 
 if __name__ == '__main__' :
-    main()
+    #main()
+    #initGUI()
