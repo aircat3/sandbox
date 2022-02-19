@@ -1,15 +1,12 @@
+# GUIライブラリ
 import PySimpleGUI as sg
+# ファイル保存
 import requests
 import os
-
-# guiの初期設定
-
-# URLの入力先
-# ファイルの保存場所指定
-# ダウンロードの実行と進行状況
 # 
+from tqdm import tqdm
 
-if __name__ == '__main__' :
+def initGUI():
 
     # Windowテーマの設定
     #sg.theme_previewer()
@@ -35,3 +32,20 @@ if __name__ == '__main__' :
             print('あなたが入力した値：', values[0])
 
     window.close()
+
+def main():
+
+    file_url = "https://images-fe.ssl-images-amazon.com/images/I/51mBstgMBlL._SY291_BO1,204,203,200_QL40_ML2_.jpg"
+    file_size = int(requests.head(file_url).headers["content-length"])
+
+    res = requests.get(file_url, stream=True)
+    pbar = tqdm(total=file_size, unit="B", unit_scale=True)
+    with open("pict.jpg", 'wb') as file:
+        for chunk in res.iter_content(chunk_size=1024):
+            file.write(chunk)
+            pbar.update(len(chunk))
+        pbar.close()
+
+
+if __name__ == '__main__' :
+    main()
