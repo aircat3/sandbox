@@ -34,7 +34,7 @@ def initGUI():
 
     window.close()
 
-def main():
+def download():
 
     file_url = "https://images-fe.ssl-images-amazon.com/images/I/51mBstgMBlL._SY291_BO1,204,203,200_QL40_ML2_.jpg"
     file_size = int(requests.head(file_url).headers["content-length"])
@@ -47,7 +47,6 @@ def main():
             pbar.update(len(chunk))
         pbar.close()
 
-
 if __name__ == '__main__' :
-    #main()
+    #download()
     #initGUI()
