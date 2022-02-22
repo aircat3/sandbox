@@ -1,5 +1,6 @@
 # MS辞書データ(csv.txt)をMAC辞書データ(.plist)に変換する
 import os
+from tkinter import W
 
 def main():
 
@@ -18,26 +19,30 @@ def main():
     write_file = open(path + file_name, 'w', encoding='UTF-8')
     
     # .plistの先頭文を記述
-    words = '<?xml version="1.0" encoding="UTF-8"?>'
-    write_file.write(words + '\n')
-    words = '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'
-    write_file.write(words + '\n')
-    words = '<plist version="1.0">'
-    write_file.write(words + '\n')
-    words = '<array>'
-    write_file.write(words + '\n')
-    words = '<plist>'
-    write_file.write(words + '\n')
+    words = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    words = words + '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n'
+    words = words + '<plist version="1.0">\n'
+    words = words + '<array>\n'
+    words = words + '<plist>\n'
+    write_file.write(words)
 
     # 書き出していく
     for data in read_file:
-        print(data)
+        # MSのデータを分割
+        data_list = data.split()
+        # MACの書式に整形
+        words = '\t<dict>\n'
+        words = words + '\t\t<key>phrase</key>\n'
+        words = words + '\t\t<string>' + data_list[1] + '</string>' + '\n'
+        words = words + '\t\t<key>shortcut</key>\n'
+        words = words + '\t\t<string>' + data_list[0] + '</string>' + '\n'
+        words = words + '\t\t</dict>\n'
+        write_file.write(words)
 
     # .plistの終端文を記述
-    words = '</array>'
-    write_file.write(words + '\n')
-    words = '</plist>'
-    write_file.write(words + '\n')
+    words = '</array>\n'
+    words =  words + '</plist>\n'
+    write_file.write(words)
 
     # ファイルクローズ
     read_file.close()
