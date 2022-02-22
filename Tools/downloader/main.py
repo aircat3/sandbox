@@ -17,6 +17,9 @@ def initGUI():
         [sg.Text('ダウンロードするURLを入力してね！')],
         [sg.Text('ダウンロード先URL', size=(10, 1)), sg.InputText()],
         [sg.Text('保存場所', size=(10, 1)), sg.InputText()],
+        
+        # TODOディレクトリ選択ようのボタンを設置する
+
         [sg.Button('OK'), sg.Button('キャンセル')]
     ]
 
