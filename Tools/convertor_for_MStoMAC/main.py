@@ -36,7 +36,7 @@ def main():
         words = words + '\t\t<string>' + data_list[1] + '</string>' + '\n'
         words = words + '\t\t<key>shortcut</key>\n'
         words = words + '\t\t<string>' + data_list[0] + '</string>' + '\n'
-        words = words + '\t\t</dict>\n'
+        words = words + '\t</dict>\n'
         write_file.write(words)
 
     # .plistの終端文を記述
