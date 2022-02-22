@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>phrase</key>
+		<string>( ﾟ∀ﾟ)o彡°えーりん！</string>
+		<key>shortcut</key>
+		<string>えーりん</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>(^ω^)</string>
+		<key>shortcut</key>
+		<string>おっ</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>＼(^o^)／</string>
+		<key>shortcut</key>
+		<string>おわた</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>( ﾟ∀ﾟ)</string>
+		<key>shortcut</key>
+		<string>きたー</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>∩( ・ω・)∩</string>
+		<key>shortcut</key>
+		<string>ばんじゃーい</string>
+	</dict>
+</array>
+</plist>
