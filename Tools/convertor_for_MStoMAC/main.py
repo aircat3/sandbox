@@ -11,11 +11,12 @@ def main():
 
     # 変換元ファイルを開く
     file_name = '/sangokushi.txt'
-    file = open(path + file_name, 'r', encoding="shift-jis")
+    read_file = open(path + file_name, 'r', encoding="shift-jis")
 
-    for data in file:
+    # 書き出していく
+    for data in read_file:
         print(data)
-    file.close()
+    read_file.close()
 
 if __name__ == "__main__":
     main()
