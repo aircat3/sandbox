@@ -1,6 +1,5 @@
 # MS辞書データ(csv.txt)をMAC辞書データ(.plist)に変換する
 import os
-from tkinter import W
 
 def main():
 
@@ -23,7 +22,6 @@ def main():
     words = words + '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n'
     words = words + '<plist version="1.0">\n'
     words = words + '<array>\n'
-    words = words + '<plist>\n'
     write_file.write(words)
 
     # 書き出していく

@@ -2,24 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-<plist>
 	<dict>
 		<key>phrase</key>
 		<string>哀公</string>
 		<key>shortcut</key>
 		<string>あいこう</string>
-		</dict>
+	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>哀帝</string>
 		<key>shortcut</key>
 		<string>あいてい</string>
-		</dict>
+	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>阿会喃</string>
 		<key>shortcut</key>
 		<string>あかいなん</string>
-		</dict>
+	</dict>
 </array>
 </plist>
