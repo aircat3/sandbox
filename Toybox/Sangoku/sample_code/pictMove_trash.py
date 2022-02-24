@@ -1,6 +1,8 @@
+import imp
 from mimetypes import init
 import PySimpleGUI as sg
 import tkinter as tk
+from PIL import Image, ImageTk
 
 def initMap(canvas):
     line_color = 'black'
@@ -31,6 +33,29 @@ def initMap(canvas):
                 (grid_height-1) * grid_size
             )
 
+def get_img_data(f, maxsize=(50, 50), first=False):
+    """Generate image data using PIL
+    """
+    print("open file:", f)
+    img = Image.open(f)
+    img.thumbnail(maxsize)
+    if first:  # tkinter is inactive the first time
+        bio = io.BytesIO()
+        img.save(bio, format="PNG")
+        del img
+        return bio.getvalue()
+    return ImageTk.PhotoImage(img)
+
+def initUnit(canvas):
+    unit_image = ImageTk.PhotoImage(file = "unit.jpeg")
+
+    # 画像の描画
+    canvas.create_image(
+        0,       # 画像表示位置(Canvasの中心)
+        0,                   
+        unit_image  # 表示画像データ
+    )
+
 def initGUI():
 
     # Windowテーマの設定
@@ -40,20 +65,25 @@ def initGUI():
     
     # Windowレイアウトの設定
     canvas = sg.Canvas(size=(330,350))
+    image_elem = sg.Image(pad=((0,0),(20,120)))
     layout = [
         [sg.Text('ダウンロードするURLを入力してね！')],
         [sg.Text('ダウンロード先URL', size=(10, 1)), sg.InputText()],
         [sg.Text('保存場所', size=(10, 1)), sg.InputText()],   
         [sg.Button('OK'), sg.Button('キャンセル')],
-        [canvas]
+        [canvas],
+        [image_elem]
     ]
 
     # Windowの生成
-    window = sg.Window('サンプルプログラム', layout, finalize=True, element_justification='center')
+    window = sg.Window('サンプルプログラム', layout, finalize=True)
 
     # Mapの生成
     initMap(canvas)
-
+    canvas.create_image(0, 0, './unit.png')
+    #filename = './unit.png'
+    #image_elem.update(data=get_img_data(filename))
+    
     # イベント処理
     while True:
         event, values = window.read()
