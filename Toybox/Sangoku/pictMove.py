@@ -3,22 +3,33 @@ import PySimpleGUI as sg
 import tkinter as tk
 
 def initMap(canvas):
-    line_color = 'red'
+    line_color = 'black'
 
     # 1マスのサイズ(px)
-    grid_size = 10
+    grid_size = 30
     # マスの縦・横数
     grid_width = 9
-    grif_height = 9
+    grid_height = 9
 
+    # マップの方眼紙の描画(線の数とマス数で2線のズレを修正)
+    grid_width = grid_width + 2
+    grid_height = grid_height + 2
     for x_pos in range(grid_width):
-        for y_pos in range(grif_height):
+        for y_pos in range(grid_height):
+            # ヨコ線描画
             canvas.tk_canvas.create_line(
-                x_pos,
-                y_pos,
-                x_pos * grid_size,
+                grid_size,
+                y_pos * grid_size,
+                (grid_width-1) * grid_size,
                 y_pos * grid_size
-                )
+            )
+            # タテ線描画
+            canvas.tk_canvas.create_line(
+                x_pos * grid_size,
+                grid_size,
+                x_pos * grid_size,
+                (grid_height-1) * grid_size
+            )
 
 def initGUI():
 
@@ -28,7 +39,7 @@ def initGUI():
     sg.theme('SystemDefault')
     
     # Windowレイアウトの設定
-    canvas = sg.Canvas(size=(200,200))
+    canvas = sg.Canvas(size=(330,350))
     layout = [
         [sg.Text('ダウンロードするURLを入力してね！')],
         [sg.Text('ダウンロード先URL', size=(10, 1)), sg.InputText()],
