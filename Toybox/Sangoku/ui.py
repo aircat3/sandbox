@@ -1,4 +1,3 @@
-from ctypes import alignment
 import PySimpleGUI as sg
 import tkinter as tk
 from PIL import Image, ImageTk
