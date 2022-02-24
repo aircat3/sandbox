@@ -3,35 +3,6 @@ import PySimpleGUI as sg
 import tkinter as tk
 from PIL import Image, ImageTk
 
-def initMap(canvas):
-    line_color = 'black'
-
-    # 1マスのサイズ(px)
-    grid_size = 30
-    # マスの縦・横数
-    grid_width = 9
-    grid_height = 9
-
-    # マップの方眼紙の描画(線の数とマス数で2線のズレを修正)
-    grid_width = grid_width + 2
-    grid_height = grid_height + 2
-    for x_pos in range(grid_width):
-        for y_pos in range(grid_height):
-            # ヨコ線描画
-            canvas.tk_canvas.create_line(
-                grid_size,
-                y_pos * grid_size,
-                (grid_width-1) * grid_size,
-                y_pos * grid_size
-            )
-            # タテ線描画
-            canvas.tk_canvas.create_line(
-                x_pos * grid_size,
-                grid_size,
-                x_pos * grid_size,
-                (grid_height-1) * grid_size
-            )
-
 def initGUI():
 
     # Windowテーマの設定
@@ -43,10 +14,11 @@ def initGUI():
     col1 = [
         [sg.Text('戦闘状況')],
         [sg.Multiline(
-            default_text="hello\nworld\n!!", 
+            default_text="hello\nworld\n!!\n", 
             font=('Arial',14),
             size=(40,12),
-            disabled=True)
+            disabled=True,
+            key='-LOG-')
         ]
     ]
     col2 = [[sg.Frame('部隊状況',[
@@ -55,23 +27,17 @@ def initGUI():
     ])]]
     col3 = [
         [sg.Text('コマンド')],
-        [sg.InputText('', font=('Arial',14), size=(100, 30))]
+        [sg.InputText(
+            '', font=('Arial',14), size=(100, 30),
+            enable_events=True, key='-INPUT-',
+        )]
     ]
     layout = [
         [sg.Column(col1), sg.Column(col2)],
-        [sg.Column(col3)]
+        [sg.Column(col3)],
+        # inputでEnterキーを押された時用のダミーボタン
+        [sg.Button('Submit', visible=False, bind_return_key=True)]
     ]
-    '''
-    canvas = sg.Canvas(size=(320,350))
-    layout = [
-        [sg.Text('ダウンロードするURLを入力してね！')],
-        [sg.Text('ダウンロード先URL', size=(10, 1)), sg.InputText()],
-        [sg.Text('保存場所', size=(10, 1)), sg.InputText()],   
-        [sg.Button('OK'), sg.Button('キャンセル')],
-        [canvas]
-    ]
-    '''
-    
 
     # Windowの生成
     window = sg.Window('サンプルプログラム', layout, size=(500, 300), margins=(0,0))
@@ -81,6 +47,17 @@ def initGUI():
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'キャンセル':
             break
+        #elif len(values['-INPUT-']) and values['-INPUT-'][-1] not in ('0123456789'):
+        #    print(values['-INPUT-'])
+
+        # Enterキー処理
+        elif event == 'Submit':
+            input_text = window['-INPUT-'].get()
+            print('You have submited %s'% input_text)
+            # ログにテキストを追加し、入力エリアをクリア
+            window['-LOG-'].print(input_text)
+            window['-INPUT-'].update('')
+
         elif event == 'OK':
             print('ダウンロードURL', values[0])
             print('ファイル保存場所', values[1])
