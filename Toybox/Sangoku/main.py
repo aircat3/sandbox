@@ -8,7 +8,7 @@ def main():
     window = simpleGUI.getWindow()
 
     while True:
-        event, values = window.read()
+        event, values = window.read(timeout=1000,timeout_key='-TIMEOUT-')
         if event == sg.WIN_CLOSED or event == 'キャンセル':
             break
 
@@ -27,6 +27,10 @@ def main():
         elif event == 'OK':
             print('ダウンロードURL', values[0])
             print('ファイル保存場所', values[1])
+
+        elif event == '-TIMEOUT-':
+            time = simpleGUI.getTime()
+            window['-TIMER-'].update(time)
 
     window.close()
 
