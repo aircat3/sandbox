@@ -55,6 +55,9 @@ class SimpleGUI():
 
     def getWindow(self):
         return self.window
+    
+    def logPrint(self, text):
+        self.window['-LOG-'].print(text)
 
 def initGUI():
 

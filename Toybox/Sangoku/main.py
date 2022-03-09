@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from EventManager import EventManager
 import ui
 
 def main():
@@ -14,9 +15,13 @@ def main():
         # Enterキー処理
         elif event == 'Submit':
             input_text = window['-INPUT-'].get()
+
+            cmd_event = EventManager()
+            cmd_event.order(input_text)
+
             print('You have submited %s'% input_text)
             # ログにテキストを追加し、入力エリアをクリア
-            window['-LOG-'].print(input_text)
+            simpleGUI.logPrint(input_text)
             window['-INPUT-'].update('')
 
         elif event == 'OK':
