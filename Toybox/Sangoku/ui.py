@@ -59,6 +59,12 @@ class SimpleGUI():
     def logPrint(self, text):
         self.window['-LOG-'].print(text)
 
+    def logMessage(self, text):
+        test = text.split()
+        for charcter in test:
+            self.window['-LOG-'].print(charcter, end='')
+ 
+
 def initGUI():
 
     simpleGUI = SimpleGUI()

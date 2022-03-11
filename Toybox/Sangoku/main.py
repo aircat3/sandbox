@@ -21,7 +21,7 @@ def main():
 
             print('You have submited %s'% input_text)
             # ログにテキストを追加し、入力エリアをクリア
-            simpleGUI.logPrint(input_text)
+            simpleGUI.logMessage(input_text)
             window['-INPUT-'].update('')
 
         elif event == 'OK':
