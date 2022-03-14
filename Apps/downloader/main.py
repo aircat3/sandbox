@@ -5,6 +5,7 @@ import requests
 import os
 # ダウンロードの進捗リスト
 from tqdm import tqdm
+import sys, time
 
 def initGUI():
 
@@ -37,19 +38,53 @@ def initGUI():
 
     window.close()
 
+def intToZeroStr(num, zero_len):
+    return str(num).zfill(zero_len)
+
+def fileNumberCountUP(file_number):
+    result = file_number + 1
+    return result
+
+def coolDown(times):
+    limits = str(times * 100)
+    for ct in range(times * 100):
+        sys.stdout.write("[CT]\r%d /" % ct)
+        sys.stdout.flush()
+        time.sleep(0.01)
+        
 def download():
 
-    file_url = "https://images-fe.ssl-images-amazon.com/images/I/51mBstgMBlL._SY291_BO1,204,203,200_QL40_ML2_.jpg"
-    file_size = int(requests.head(file_url).headers["content-length"])
+    header_url = 'https://www.mlit.go.jp/common/'
+    file_number = 116950
+    file_ext = '.pdf'
 
-    res = requests.get(file_url, stream=True)
-    pbar = tqdm(total=file_size, unit="B", unit_scale=True)
-    with open("pict.jpg", 'wb') as file:
-        for chunk in res.iter_content(chunk_size=1024):
-            file.write(chunk)
-            pbar.update(len(chunk))
-        pbar.close()
+    zero_len = 9    # sample '000116950'
+
+    cool_time_s = 10     # Caution!!(Min10s)
+
+    for page_num in range(2):
+
+        # Ganarate File URL
+        file_name = intToZeroStr(file_number, zero_len) + file_ext
+        url = header_url + file_name
+        file_size = int(requests.head(url).headers["content-length"])
+
+        # Request and Save
+        res = requests.get(url, stream=True)
+        pbar = tqdm(total=file_size, unit="B", unit_scale=True)
+        with open(file_name, 'wb') as file:
+            for chunk in res.iter_content(chunk_size=1024):
+                file.write(chunk)
+                pbar.update(len(chunk))
+            pbar.close()
+        
+        # Next file setting
+        file_number = fileNumberCountUP(file_number)
+
+        # Cool time
+        coolDown(cool_time_s)
+
 
 if __name__ == '__main__' :
-    #download()
+    download()
     #initGUI()
