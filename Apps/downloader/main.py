@@ -58,11 +58,12 @@ def download():
     file_number = 116950
     file_ext = '.pdf'
 
-    zero_len = 9    # sample '000116950'
+    # OPTION
+    zero_len = 9            # sample '000116950'
+    cool_time_s = 10        # Caution!!(Min10s)
+    next_continue = 10      # download files
 
-    cool_time_s = 10     # Caution!!(Min10s)
-
-    for page_num in range(2):
+    for page_num in range(next_continue):
 
         # Ganarate File URL
         file_name = intToZeroStr(file_number, zero_len) + file_ext
