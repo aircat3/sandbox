@@ -1,4 +1,7 @@
 from collections import deque
+from concurrent.futures import thread
+import time
+import threading
 
 class EventManager():
     def __init__(self):
@@ -14,9 +17,16 @@ class EventManager():
         self.que.clear()
         self.que.append(order)
 
+    def evt_test(self):
+        print('[Event]test event.')
+
+    def execute_order(self):
+        thread1 = threading.Thread(target=self.evt_Test)
+        thread1.start()
+    
 
 def class_test():
-    print('test')
+    print('[Sys]EventManager function.')
 
 if __name__ == '__main__':
     class_test()
