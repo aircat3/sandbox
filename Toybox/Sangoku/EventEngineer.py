@@ -2,5 +2,6 @@ import time
 
 class Message():
     def test():
-        time.sleep(3)
+        print('Message Function start')
+        time.sleep(5)
         return "[Engineer] test message."

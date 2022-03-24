@@ -1,8 +1,10 @@
 # システム系
 from asyncio import futures
 from collections import deque
+from platform import win32_edition
 import threading, time
 from concurrent.futures import ThreadPoolExecutor
+from unittest import result
 # UI系統
 import PySimpleGUI as sg
 from ui import SimpleGUI
@@ -31,20 +33,17 @@ class EventManager():
         self.que.clear()
         self.que.append(order)
 
-    def evt_test(self):
-        time.sleep(2)
-        self.window.logPrint('[Event]test event.')
-
     def execute_order(self):
-        self.future = self.executor.submit(ee.Message.test())
+        self.future = self.executor.submit(ee.Message.test)
 
     def len_order(self):
         return len(self.que)
     
+    # 現在のタスクの実行状況を確認
     def check_order(self):
-        if self.future.done:
+        if self.future.done():
             return 'done'
-        elif self.future.running:
+        elif self.future.running():
             return 'running'
         else:
             return 'Error "check_order".'
@@ -62,10 +61,11 @@ class EventManager():
             elif event == 'Submit':
                 input_text = app_window['-INPUT-'].get()
                 self.order(input_text)
+                self.execute_order()
 
                 print('You have submited %s'% input_text)
                 # ログにテキストを追加し、入力エリアをクリア
-                simplegui.logMessage(input_text)
+                #simplegui.logMessage(input_text)
                 app_window['-INPUT-'].update('')
 
             elif event == 'OK':
@@ -75,6 +75,14 @@ class EventManager():
             elif event == '-TIMEOUT-':
                 time = simplegui.getTime()
                 app_window['-TIMER-'].update(time)
+
+                # タスクの完了チェックと処理
+                if 1 < self.len_order():
+                    if 'done' == self.check_order():
+                        result = self.future.result()
+                        simplegui.logPrint(str(result))
+                        # 完了したらキューから削除
+                        self.que.popleft()
 
         app_window.close()
 
