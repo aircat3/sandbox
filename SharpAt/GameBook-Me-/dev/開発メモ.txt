@@ -1,0 +1,7 @@
+
+・タイトル英語フォント
+　Source Serif Pro
+
+・タイトル日本度フォント
+　Monospace
+
